@@ -16,6 +16,10 @@ public class Brain extends Organ {
         String otherOrganName = otherOrgan.getClass().getName();
 
         System.out.println("Yo " + otherOrganName + " " + otherOrgan.Name + "my job is to THINK, you know what I mean? mm?");
+    }
 
+    // class method
+    public static void Think(){
+        System.out.println("I'm thinking... hmm...");
     }
 }
