@@ -18,7 +18,7 @@ public class BodyPart {
     public void AssignOrgan(Organ organ) {
         if (Organs.contains(organ)) return;
         Organs.add(organ);
-        organ.BodyPart = this;
+        organ.setBodyPart(this);
     }
 
     public String getName() {
@@ -26,7 +26,7 @@ public class BodyPart {
     }
 
     public void setName(String name) {
-        if (this.Name == null || this.Name.length() <= 0)
+        if (name == null || name.length() <= 0)
             throw new IllegalArgumentException("name is null or empty");
         else
             Name = name;

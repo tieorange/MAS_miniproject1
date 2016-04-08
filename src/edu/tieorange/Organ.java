@@ -75,6 +75,16 @@ public abstract class Organ {
     }
 
     public abstract void BroadcastYourFunction(Organ otherOrgan);
+
+    @Override
+    public String toString() {
+        String result = this.getClass().getSimpleName();
+        result += ", " + getName();
+        if (getSurname() != null)
+            result += " " + getSurname();
+        return result;
+    }
+
     //</editor-fold>
 
     //<editor-fold desc="Getters and Setters">
@@ -169,10 +179,18 @@ public abstract class Organ {
         return BodyPart;
     }
 
+    public void setBodyPart(BodyPart bodyPart) {
+        if (bodyPart == null)
+            this.BodyPart = bodyPart;
+
+    }
+
     // derived attr
     public int getDeltaMinimalCaloriesConsumption() {
         return CaloriesConsumptionPerMinute - MinimalCaloriesConsumption;
     }
+
+
     //</editor-fold>
 
 }

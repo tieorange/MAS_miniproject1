@@ -20,7 +20,7 @@ public class Brain extends Organ {
     public void BroadcastYourFunction(Organ otherOrgan) {
         String otherOrganName = otherOrgan.getClass().getName();
 
-        System.out.println("Yo " + otherOrganName + " " + otherOrgan.Name + "my job is to THINK, you know what I mean? mm?");
+        System.out.println("Yo " + otherOrganName + " " + otherOrgan.getName() + "my job is to THINK, you know what I mean? mm?");
     }
 
     // class method

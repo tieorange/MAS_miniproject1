@@ -22,7 +22,7 @@ public class Main {
         core.AssignOrgan(heart);
         core.AssignOrgan(stomach);
 
-
+        System.out.println(brain);
 
     }
 }

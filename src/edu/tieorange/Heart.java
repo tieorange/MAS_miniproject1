@@ -19,11 +19,11 @@ public class Heart extends Organ {
         String otherOrganName = otherOrgan.getClass().getName();
 
         if (otherOrgan.getClass() == Brain.class) {
-            System.out.println("Yo " + otherOrganName + " " + otherOrgan.Name + "my job is to LISTEN TO YOUR SIGNALS, you know what I mean? mm?");
+            System.out.println("Yo " + otherOrganName + " " + otherOrgan.getName() + "my job is to LISTEN TO YOUR SIGNALS, you know what I mean? mm?");
             return;
         }
 
-        System.out.println("Yo " + otherOrganName + " " + otherOrgan.Name + "my job is to MAKE A BEAT, you know what I mean? mm?");
+        System.out.println("Yo " + otherOrganName + " " + otherOrgan.getName() + "my job is to MAKE A BEAT, you know what I mean? mm?");
     }
 
 

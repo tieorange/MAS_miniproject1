@@ -18,6 +18,6 @@ public class Stomach extends Organ {
     @Override
     public void BroadcastYourFunction(Organ otherOrgan) {
         String otherOrganName = otherOrgan.getClass().getName();
-        System.out.printf("Yo %s %s, my job is to DIGEST FOOOOOOD, you know what I mean? mm?%n", otherOrganName, otherOrgan.Name);
+        System.out.printf("Yo %s %s, my job is to DIGEST FOOOOOOD, you know what I mean? mm?%n", otherOrganName, otherOrgan.getName());
     }
 }
