@@ -4,9 +4,9 @@ package edu.tieorange;
  * Created by tieorange on 07/04/16.
  */
 public class Location {
-    public int x;
-    public int y;
-    public int z;
+    private int x;
+    private int y;
+    private int z;
 
     public Location(int x, int y, int z) {
         setX(x);

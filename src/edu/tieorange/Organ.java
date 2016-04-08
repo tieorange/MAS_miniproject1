@@ -192,16 +192,16 @@ public abstract class Organ implements Serializable {
     }
 
     public List<String> getSounds() {
-        return Sounds;
+        return new ArrayList<>(Sounds);
     }
 
     // jetBrains annotations
-    @Contract("null -> fail")
+//    @Contract("null -> fail")
     private void setSounds(List<String> sounds) {
-        if (sounds == null || sounds.isEmpty())
-            throw new IllegalArgumentException("sounds is null or empty");
-        else
-            this.Sounds = new ArrayList<>(sounds);
+//        if (sounds == null || sounds.isEmpty())
+//            throw new IllegalArgumentException("sounds is null or empty");
+//        else
+        this.Sounds = new ArrayList<>(sounds);
     }
 
     public void addSound(String sound) {
