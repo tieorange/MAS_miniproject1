@@ -18,8 +18,6 @@ public class Brain extends Organ {
         super(name, surname, minimalCaloriesConsumption, caloriesConsumptionPerMinute);
     }
 
-
-
     @Override
     public void TellAboutJob(Organ otherOrgan) {
         String otherOrganName = otherOrgan.getClass().getSimpleName();
@@ -28,7 +26,9 @@ public class Brain extends Organ {
                 otherOrganName, otherOrgan.getClass().getSimpleName()));
     }
 
-//    // class method
+
+
+    //    // class method
 //    public static void Think() {
 //        System.out.println("I'm thinking... hmm...");
 //    }

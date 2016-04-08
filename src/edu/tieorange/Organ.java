@@ -2,6 +2,7 @@ package edu.tieorange;
 
 import org.jetbrains.annotations.Contract;
 
+import java.io.*;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.stream.Collectors;
 /**
  * Created by tieorange on 07/04/16.
  */
-public abstract class Organ {
+public abstract class Organ implements Serializable {
 
     //<editor-fold desc="Fields">
     private static List<Organ> extent = new ArrayList<>();
@@ -54,6 +55,37 @@ public abstract class Organ {
 
 
     //<editor-fold desc="methods">
+    public static void saveExtent() {
+        try {
+            FileOutputStream fileOut =
+                    new FileOutputStream("/tmp/extent.body");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(extent);
+            out.close();
+            fileOut.close();
+            System.out.printf("Serialized data is saved in /tmp/extent.body");
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
+
+    public static void loadExtent() {
+        try {
+            FileInputStream fileIn = new FileInputStream("/tmp/extent.body");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            extent = (List<Organ>) in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+            return;
+        } catch (ClassNotFoundException c) {
+            System.out.println("Extent class not found");
+            c.printStackTrace();
+            return;
+        }
+    }
+
     // return sum of all Calories used by all organs
     public static int CaloriesSum() {
         int sum = 0;
