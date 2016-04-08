@@ -7,17 +7,20 @@ import java.util.List;
  */
 public class Stomach extends Organ {
 
-    public Stomach(String name, String surname, int minimalCaloriesConsumption, int caloriesConsumptionPerMinute, List<String> sounds) {
+    private static int minimalCaloriesConsumption = 30;
+
+
+    public Stomach(String name, String surname, int caloriesConsumptionPerMinute, List<String> sounds) {
         super(name, surname, minimalCaloriesConsumption, caloriesConsumptionPerMinute, sounds);
     }
 
-    public Stomach(String name, String surname, int minimalCaloriesConsumption, int caloriesConsumptionPerMinute) {
+    public Stomach(String name, String surname, int caloriesConsumptionPerMinute) {
         super(name, surname, minimalCaloriesConsumption, caloriesConsumptionPerMinute);
     }
 
     @Override
-    public void BroadcastYourFunction(Organ otherOrgan) {
-        String otherOrganName = otherOrgan.getClass().getName();
+    public void TellAboutJob(Organ otherOrgan) {
+        String otherOrganName = otherOrgan.getClass().getSimpleName();
         System.out.printf("Yo %s %s, my job is to DIGEST FOOOOOOD, you know what I mean? mm?%n", otherOrganName, otherOrgan.getName());
     }
 }

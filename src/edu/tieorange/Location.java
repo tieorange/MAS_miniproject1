@@ -14,6 +14,12 @@ public class Location {
         setZ(z);
     }
 
+    public Location(Location location) {
+        setX(location.getX());
+        setY(location.getY());
+        setZ(location.getZ());
+    }
+
     public int getX() {
         return x;
     }

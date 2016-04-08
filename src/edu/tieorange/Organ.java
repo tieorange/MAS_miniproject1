@@ -2,6 +2,7 @@ package edu.tieorange;
 
 import org.jetbrains.annotations.Contract;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,14 +15,14 @@ public abstract class Organ {
     //<editor-fold desc="Fields">
     private static List<Organ> extent = new ArrayList<>();
     private String Name;
-    private String Surname; // optional // TODO:
+    private String Surname; // optional
     private int CaloriesConsumptionPerMinute;
     private int MinimalCaloriesConsumption;
     // multi-value
     private List<String> Sounds = new ArrayList<>();
     // exact location in the body
     // complex attribute
-    private Location Location;
+    private Location Location; // optional
     // part of the body to which organ belongs
     private BodyPart BodyPart;
     //</editor-fold>
@@ -29,6 +30,7 @@ public abstract class Organ {
 
     //<editor-fold desc="Constructors">
     public Organ(String name, String surname, int minimalCaloriesConsumption, int caloriesConsumptionPerMinute, List<String> sounds) {
+        this();
         setName(name);
         setSurname(surname);
         setCaloriesConsumptionPerMinute(caloriesConsumptionPerMinute);
@@ -37,6 +39,7 @@ public abstract class Organ {
     }
 
     public Organ(String name, String surname, int minimalCaloriesConsumption, int caloriesConsumptionPerMinute) {
+        this();
         setName(name);
         setSurname(surname);
         setCaloriesConsumptionPerMinute(caloriesConsumptionPerMinute);
@@ -71,10 +74,12 @@ public abstract class Organ {
     }
 
     public void SignalTheExistence(Organ otherOrgan) {
-        System.out.println(Name + " said to " + otherOrgan.Name + " that he works well");
+        System.out.println(MessageFormat.format("{0} {1} said to {2} {3} that he works well",
+                this.getClass().getSimpleName(), Name,
+                otherOrgan.getClass().getSimpleName(), otherOrgan.Name));
     }
 
-    public abstract void BroadcastYourFunction(Organ otherOrgan);
+    public abstract void TellAboutJob(Organ otherOrgan);
 
     @Override
     public String toString() {
@@ -82,7 +87,16 @@ public abstract class Organ {
         result += ", " + getName();
         if (getSurname() != null)
             result += " " + getSurname();
-        return result;
+        result += MessageFormat.format("\nI consume {0} calories/minute", getCaloriesConsumptionPerMinute());
+        result += "\nmy minimal consumption = " + getMinimalCaloriesConsumption();
+        if (getBodyPart() != null)
+            result += "\nI sit in a " + getBodyPart();
+        if (Sounds != null && !Sounds.isEmpty())
+            result += "\nI make such a sound(s) as " + getSoundsString();
+        if (Location != null)
+            result += MessageFormat.format("\nlocation: x={0}; y={1}; z={2}",
+                    Location.getX(), Location.getY(), Location.getZ());
+        return result + '\n';
     }
 
     //</editor-fold>
@@ -165,15 +179,27 @@ public abstract class Organ {
             Sounds.add(sound);
     }
 
+    private String getSoundsString() {
+        String result = "";
+        if (this.Sounds == null || this.Sounds.isEmpty())
+            return result;
+        else {
+            for (String str : Sounds) {
+                result += str + "; ";
+            }
+            return result;
+        }
+    }
+
     public edu.tieorange.Location getLocation() {
         return Location;
     }
 
     public void setLocation(edu.tieorange.Location location) {
-        if (this.Location == location || this.Location == null) {
+        if (this.Location == location) {
             throw new IllegalArgumentException("Location is null or duplicated");
         } else {
-            this.Location = location;
+            this.Location = new Location(location);
         }
     }
 
@@ -182,7 +208,7 @@ public abstract class Organ {
     }
 
     public void setBodyPart(BodyPart bodyPart) {
-        if (bodyPart == null)
+        if (bodyPart != null)
             this.BodyPart = bodyPart;
 
     }

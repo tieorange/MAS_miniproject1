@@ -1,5 +1,6 @@
 package edu.tieorange;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -7,24 +8,28 @@ import java.util.List;
  */
 public class Brain extends Organ {
 
+    private static int minimalCaloriesConsumption = 10;
 
-    public Brain(String name, String surname, int minimalCaloriesConsumption, int caloriesConsumptionPerMinute, List<String> sounds) {
+    public Brain(String name, String surname, int caloriesConsumptionPerMinute, List<String> sounds) {
         super(name, surname, minimalCaloriesConsumption, caloriesConsumptionPerMinute, sounds);
     }
 
-    public Brain(String name, String surname, int minimalCaloriesConsumption, int caloriesConsumptionPerMinute) {
+    public Brain(String name, String surname, int caloriesConsumptionPerMinute) {
         super(name, surname, minimalCaloriesConsumption, caloriesConsumptionPerMinute);
     }
 
+
+
     @Override
-    public void BroadcastYourFunction(Organ otherOrgan) {
-        String otherOrganName = otherOrgan.getClass().getName();
+    public void TellAboutJob(Organ otherOrgan) {
+        String otherOrganName = otherOrgan.getClass().getSimpleName();
 
-        System.out.println("Yo " + otherOrganName + " " + otherOrgan.getName() + "my job is to THINK, you know what I mean? mm?");
+        System.out.println(MessageFormat.format("Yo {0} {1}my job is to THINK, you know what I mean? mm?",
+                otherOrganName, otherOrgan.getClass().getSimpleName()));
     }
 
-    // class method
-    public static void Think(){
-        System.out.println("I'm thinking... hmm...");
-    }
+//    // class method
+//    public static void Think() {
+//        System.out.println("I'm thinking... hmm...");
+//    }
 }
