@@ -23,6 +23,8 @@ public class Main {
         core.AssignOrgan(stomach);
 
         System.out.println(brain);
+        System.out.println(heart);
+        System.out.println(stomach);
 
     }
 }

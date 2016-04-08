@@ -31,16 +31,16 @@ public abstract class Organ {
     public Organ(String name, String surname, int minimalCaloriesConsumption, int caloriesConsumptionPerMinute, List<String> sounds) {
         setName(name);
         setSurname(surname);
-        setMinimalCaloriesConsumption(caloriesConsumptionPerMinute);
         setCaloriesConsumptionPerMinute(caloriesConsumptionPerMinute);
+        setMinimalCaloriesConsumption(minimalCaloriesConsumption);
         setSounds(sounds);
     }
 
     public Organ(String name, String surname, int minimalCaloriesConsumption, int caloriesConsumptionPerMinute) {
         setName(name);
         setSurname(surname);
-        setMinimalCaloriesConsumption(caloriesConsumptionPerMinute);
         setCaloriesConsumptionPerMinute(caloriesConsumptionPerMinute);
+        setMinimalCaloriesConsumption(minimalCaloriesConsumption);
     }
 
     private Organ() {
@@ -139,8 +139,10 @@ public abstract class Organ {
     }
 
     public void setMinimalCaloriesConsumption(int minimalCaloriesConsumption) {
-
-        MinimalCaloriesConsumption = minimalCaloriesConsumption;
+        if (minimalCaloriesConsumption > getCaloriesConsumptionPerMinute())
+            throw new IllegalArgumentException("minimal can't be bigger than normal consumption");
+        else
+            MinimalCaloriesConsumption = minimalCaloriesConsumption;
     }
 
     public List<String> getSounds() {
