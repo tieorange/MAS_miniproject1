@@ -7,8 +7,13 @@ import java.util.List;
  */
 public class Brain extends Organ {
 
-    public Brain(List<String> sounds, String surname, int caloriesConsumptionPerMinute, int minimalCaloriesConsumption, String name) {
-        super(sounds, surname, caloriesConsumptionPerMinute, minimalCaloriesConsumption, name);
+
+    public Brain(String name, String surname, int minimalCaloriesConsumption, int caloriesConsumptionPerMinute, List<String> sounds) {
+        super(name, surname, minimalCaloriesConsumption, caloriesConsumptionPerMinute, sounds);
+    }
+
+    public Brain(String name, String surname, int minimalCaloriesConsumption, int caloriesConsumptionPerMinute) {
+        super(name, surname, minimalCaloriesConsumption, caloriesConsumptionPerMinute);
     }
 
     @Override

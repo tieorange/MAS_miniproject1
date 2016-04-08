@@ -1,46 +1,56 @@
 package edu.tieorange;
 
+import org.jetbrains.annotations.Contract;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by tieorange on 07/04/16.
  */
-public abstract class Organ extends ParentObject {
-    public static List<Organ> extent = new ArrayList<>();
-    public String Name;
-    public String Surname; // optional // TODO:
-    public int CaloriesConsumptionPerMinute;
-    public int MinimalCaloriesConsumption;
+public abstract class Organ {
 
-    // derived attr
-    public int getDeltaMinimalCaloriesConsumption() {
-        return CaloriesConsumptionPerMinute - MinimalCaloriesConsumption;
+    //<editor-fold desc="Fields">
+    private static List<Organ> extent = new ArrayList<>();
+    private String Name;
+    private String Surname; // optional // TODO:
+    private int CaloriesConsumptionPerMinute;
+    private int MinimalCaloriesConsumption;
+    // multi-value
+    private List<String> Sounds = new ArrayList<>();
+    // exact location in the body
+    // complex attribute
+    private Location Location;
+    // part of the body to which organ belongs
+    private BodyPart BodyPart;
+    //</editor-fold>
+
+
+    //<editor-fold desc="Constructors">
+    public Organ(String name, String surname, int minimalCaloriesConsumption, int caloriesConsumptionPerMinute, List<String> sounds) {
+        setName(name);
+        setSurname(surname);
+        setMinimalCaloriesConsumption(caloriesConsumptionPerMinute);
+        setCaloriesConsumptionPerMinute(caloriesConsumptionPerMinute);
+        setSounds(sounds);
     }
 
-    public Organ(List<String> sounds, String surname, int caloriesConsumptionPerMinute, int minimalCaloriesConsumption, String name) {
-        Sounds = sounds;
-        Surname = surname;
-        CaloriesConsumptionPerMinute = caloriesConsumptionPerMinute;
-        MinimalCaloriesConsumption = minimalCaloriesConsumption;
-        Name = name;
+    public Organ(String name, String surname, int minimalCaloriesConsumption, int caloriesConsumptionPerMinute) {
+        setName(name);
+        setSurname(surname);
+        setMinimalCaloriesConsumption(caloriesConsumptionPerMinute);
+        setCaloriesConsumptionPerMinute(caloriesConsumptionPerMinute);
     }
 
     private Organ() {
         super();
         Organ.extent.add(this);
     }
+    //</editor-fold>
 
-    // multi-value
-    public List<String> Sounds = new ArrayList<>();
 
-    // exact location in the body
-    // complex attribute
-    public Location Location;
-
-    // part of the body to which organ belongs
-    public BodyPart BodyPart;
-
+    //<editor-fold desc="methods">
     // return sum of all Calories used by all organs
     public static int CaloriesSum() {
         int sum = 0;
@@ -65,7 +75,9 @@ public abstract class Organ extends ParentObject {
     }
 
     public abstract void BroadcastYourFunction(Organ otherOrgan);
+    //</editor-fold>
 
+    //<editor-fold desc="Getters and Setters">
     public static List<Organ> getOrgans() {
         List<Organ> tmp = new ArrayList<>(Organ.extent);
         return tmp;
@@ -75,12 +87,7 @@ public abstract class Organ extends ParentObject {
     public static List<Organ> getOrgans(int minConsumption) {
         List<Organ> tmp = new ArrayList<>(Organ.extent);
 
-        List<Organ> results = new ArrayList<>();
-        for (Organ t : tmp) {
-            if (t.getCaloriesConsumptionPerMinute() > minConsumption) {
-                results.add(t);
-            }
-        }
+        List<Organ> results = tmp.stream().filter(t -> t.getCaloriesConsumptionPerMinute() > minConsumption).collect(Collectors.toList());
         return results;
 
     }
@@ -130,6 +137,15 @@ public abstract class Organ extends ParentObject {
         return Sounds;
     }
 
+    // jetBrains annotations
+    @Contract("null -> fail")
+    private void setSounds(List<String> sounds) {
+        if (sounds == null || sounds.isEmpty())
+            throw new IllegalArgumentException("sounds is null or empty");
+        else
+            this.Sounds = new ArrayList<>(sounds);
+    }
+
     public void addSound(String sound) {
         if (sound == null || sound.length() <= 0)
             throw new IllegalArgumentException("Sound is null or empty");
@@ -147,11 +163,16 @@ public abstract class Organ extends ParentObject {
         } else {
             this.Location = location;
         }
-
     }
 
     public edu.tieorange.BodyPart getBodyPart() {
         return BodyPart;
     }
+
+    // derived attr
+    public int getDeltaMinimalCaloriesConsumption() {
+        return CaloriesConsumptionPerMinute - MinimalCaloriesConsumption;
+    }
+    //</editor-fold>
 
 }

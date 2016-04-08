@@ -6,8 +6,13 @@ import java.util.List;
  * Created by tieorange on 07/04/16.
  */
 public class Heart extends Organ {
-    public Heart(List<String> sounds, String surname, int caloriesConsumptionPerMinute, int minimalCaloriesConsumption, String name) {
-        super(sounds, surname, caloriesConsumptionPerMinute, minimalCaloriesConsumption, name);
+
+    public Heart(String name, String surname, int minimalCaloriesConsumption, int caloriesConsumptionPerMinute, List<String> sounds) {
+        super(name, surname, minimalCaloriesConsumption, caloriesConsumptionPerMinute, sounds);
+    }
+
+    public Heart(String name, String surname, int minimalCaloriesConsumption, int caloriesConsumptionPerMinute) {
+        super(name, surname, minimalCaloriesConsumption, caloriesConsumptionPerMinute);
     }
 
     public void BroadcastYourFunction(Organ otherOrgan) {
