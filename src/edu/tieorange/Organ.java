@@ -13,11 +13,10 @@ public abstract class Organ extends ParentObject {
     public int CaloriesConsumptionPerMinute;
     public int MinimalCaloriesConsumption;
 
+    // derived attr
     public int getDeltaMinimalCaloriesConsumption() {
         return CaloriesConsumptionPerMinute - MinimalCaloriesConsumption;
     }
-
-    public int DeltaMinimalCaloriesConsumption; // derived attr
 
     public Organ(List<String> sounds, String surname, int caloriesConsumptionPerMinute, int minimalCaloriesConsumption, String name) {
         Sounds = sounds;
@@ -45,8 +44,7 @@ public abstract class Organ extends ParentObject {
     // return sum of all Calories used by all organs
     public static int CaloriesSum() {
         int sum = 0;
-        for (Organ organ :
-                extent) {
+        for (Organ organ : extent) {
             sum += organ.getCaloriesConsumptionPerMinute();
         }
         return sum;
@@ -55,7 +53,6 @@ public abstract class Organ extends ParentObject {
     // true if the changes where successful
     public boolean ChangeCaloriesConsumption(int newConsumption) {
         if (newConsumption < MinimalCaloriesConsumption) {
-            // TODO: komunikat
             return false;
         } else {
             this.CaloriesConsumptionPerMinute = newConsumption;
@@ -63,7 +60,7 @@ public abstract class Organ extends ParentObject {
         }
     }
 
-    public void SignalTheExistance(Organ otherOrgan) {
+    public void SignalTheExistence(Organ otherOrgan) {
         System.out.println(Name + " said to " + otherOrgan.Name + " that he works well");
     }
 
@@ -93,7 +90,12 @@ public abstract class Organ extends ParentObject {
     }
 
     public void setName(String name) {
-        Name = name;
+        if (name == null) {
+            throw new IllegalArgumentException("Name is null");
+        } else {
+            this.Name = name;
+        }
+
     }
 
     public String getSurname() {
@@ -101,7 +103,7 @@ public abstract class Organ extends ParentObject {
     }
 
     public void setSurname(String surname) {
-        Surname = surname;
+        this.Surname = surname;
     }
 
     public int getCaloriesConsumptionPerMinute() {
@@ -109,7 +111,10 @@ public abstract class Organ extends ParentObject {
     }
 
     public void setCaloriesConsumptionPerMinute(int caloriesConsumptionPerMinute) {
-        CaloriesConsumptionPerMinute = caloriesConsumptionPerMinute;
+        if (caloriesConsumptionPerMinute <= this.MinimalCaloriesConsumption)
+            throw new IllegalArgumentException("consumption has to be bigger than minimal");
+        else
+            CaloriesConsumptionPerMinute = caloriesConsumptionPerMinute;
     }
 
     public int getMinimalCaloriesConsumption() {
@@ -117,6 +122,7 @@ public abstract class Organ extends ParentObject {
     }
 
     public void setMinimalCaloriesConsumption(int minimalCaloriesConsumption) {
+
         MinimalCaloriesConsumption = minimalCaloriesConsumption;
     }
 
@@ -124,8 +130,11 @@ public abstract class Organ extends ParentObject {
         return Sounds;
     }
 
-    public void setSounds(List<String> sounds) {
-        Sounds = sounds;
+    public void addSound(String sound) {
+        if (sound == null || sound.length() <= 0)
+            throw new IllegalArgumentException("Sound is null or empty");
+        else
+            Sounds.add(sound);
     }
 
     public edu.tieorange.Location getLocation() {
@@ -133,7 +142,12 @@ public abstract class Organ extends ParentObject {
     }
 
     public void setLocation(edu.tieorange.Location location) {
-        Location = location;
+        if (this.Location == location || this.Location == null) {
+            throw new IllegalArgumentException("Location is null or duplicated");
+        } else {
+            this.Location = location;
+        }
+
     }
 
     public edu.tieorange.BodyPart getBodyPart() {
